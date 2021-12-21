@@ -1,4 +1,4 @@
-import fs from "fs";
+import * as fs from "fs";
 // import util from 'util'
 
 const data = fs.readFileSync('./day4/input4.txt', 'utf-8');
@@ -76,8 +76,6 @@ const updateBoard = (board: Board, bingoNumber: any) => {
 }
 
 const bingo = (boards: Board[], bingoNumbers: number[]) => {
-    const length = boards.length;
-
     for (let updatedBoards = boards, numberIndex = 0; numberIndex < bingoNumbers.length; numberIndex += 1) {
         let newBoards: Board[] = [];
         for (let board of updatedBoards) {
@@ -93,6 +91,28 @@ const bingo = (boards: Board[], bingoNumbers: number[]) => {
 }
 
 console.log('bingo(bingoBoards, bingoNumbers)', bingo(bingoBoards, bingoNumbers));
+
+const absoluteLoser = (boards: Board[], bingoNumbers: number[]) => {
+    let winners: Bingo[] = []
+    for (let updatedBoards = boards, numberIndex = 0; numberIndex < bingoNumbers.length; numberIndex += 1) {
+        let newBoards: Board[] = [];
+        for (let board of updatedBoards) {
+            let updated = updateBoard(board, bingoNumbers[numberIndex]);
+            if (updated.isWinner) {
+                winners.push(updated.isWinner)
+                if (winners.length == bingoBoards.length) {
+                    console.log('winners.length == bingoBoards.length', winners.length == bingoBoards.length);
+                    return calculateBingoScore(winners.at(-1));
+                }
+            } else {
+                newBoards.push(updated.board)
+            }
+        }
+        updatedBoards = newBoards;
+    }
+    return calculateBingoScore(winners.at(-1));
+}
+console.log('absoluteLoser()', absoluteLoser(bingoBoards, bingoNumbers));
 
 //recursive bingo
 
