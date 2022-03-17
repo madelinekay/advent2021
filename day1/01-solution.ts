@@ -27,24 +27,3 @@ const part2 = () => {
 }
 
 const arraySumOfThree = part2();
-console.log('part1(arraySumOfThree', part1(arraySumOfThree));
-// console.log('part1()', part1());
-
-
-  // type Acc = { prev: null | number, count: number }
-  // nums.reduce((acc: Acc, num) => {
-  //   if (acc.prev && acc.prev < num) {
-  //     return { count: acc.count + 1, prev: num }
-  //   } else {
-  //     return { ...acc, prev: num }
-  //   }
-  // }, { prev: null, count: 0 })
-
-  // const increase = nums.reduce((acc: number, i: number) => {
-  //   if (nums[i + 1] > nums[i]) {
-  //     console.log('nums[i+1], nums[i]', nums[i + 1], nums[i]);
-  //     return acc + 1;
-  //   } else {
-  //     return acc;
-  //   }
-  // }, 0)

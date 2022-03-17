@@ -1,5 +1,4 @@
 import * as fs from "fs";
-// import util from 'util'
 
 const data = fs.readFileSync('./day4/input4.txt', 'utf-8');
 const blocks: string[] = data.split("\n\n")
@@ -45,7 +44,6 @@ const isThereBingo = (bingoBoard: Board, bingoNumber: number): any => {
         for (let i = 0; i < bingoBoard[0].length; i++) {
             let count = 0
             for (let row of bingoBoard) {
-
                 if (row[i].checked) {
                     count += 1;
                 }
@@ -90,8 +88,6 @@ const bingo = (boards: Board[], bingoNumbers: number[]) => {
     }
 }
 
-console.log('bingo(bingoBoards, bingoNumbers)', bingo(bingoBoards, bingoNumbers));
-
 const absoluteLoser = (boards: Board[], bingoNumbers: number[]) => {
     let winners: Bingo[] = []
     for (let updatedBoards = boards, numberIndex = 0; numberIndex < bingoNumbers.length; numberIndex += 1) {
@@ -101,7 +97,6 @@ const absoluteLoser = (boards: Board[], bingoNumbers: number[]) => {
             if (updated.isWinner) {
                 winners.push(updated.isWinner)
                 if (winners.length == bingoBoards.length) {
-                    console.log('winners.length == bingoBoards.length', winners.length == bingoBoards.length);
                     return calculateBingoScore(winners.at(-1));
                 }
             } else {
@@ -112,72 +107,3 @@ const absoluteLoser = (boards: Board[], bingoNumbers: number[]) => {
     }
     return calculateBingoScore(winners.at(-1));
 }
-console.log('absoluteLoser()', absoluteLoser(bingoBoards, bingoNumbers));
-
-//recursive bingo
-
-
-// let bingoWinner: Bingo | null = null;
-
-// const winnerIndex = bingoBoards.findIndex(board => {
-//     return _.isEqual(board, winner)
-// });
-
-// const isThereBingo = (bingoBoards: Board[], bingoNumber: number): any => {
-//     for (let bingoBoard of bingoBoards) {
-//         for (let row of bingoBoard) {
-//             let count = 0;
-//             for (let square of row) {
-//                 if (square.checked) {
-//                     count += 1;
-//                 }
-//                 if (count == 5) {
-//                     return { board: bingoBoard, index: bingoBoards.indexOf(bingoBoard), bingoNumber };
-//                 }
-//             }
-
-//             for (let i = 0; i < bingoBoard[0].length; i++) {
-//                 let count = 0
-//                 for (let row of bingoBoard) {
-//                     if (row[i].checked) {
-//                         count += 1;
-//                     }
-//                     if (count == 5) {
-//                         return { board: bingoBoard, index: bingoBoards.indexOf(bingoBoard), bingoNumber };
-//                     }
-//                 }
-//             }
-//         }
-//     }
-//     return null;
-// }
-
-// const updateBoards = (boards: Board[], bingoNumber: any) => {
-//     const updated = boards.map(board => board.map(row => row.map(cell => {
-//         if (cell.number == bingoNumber) {
-//             // console.log('cell=bingoNumber', cell.number, bingoNumber);
-//             return { ...cell, checked: true }
-//         } else {
-//             return cell;
-//         }
-//     })))
-//     // console.log('updated', bingoNumber, util.inspect(updated, { depth: null }));
-//     return updated;
-// };
-
-// const bingo = (boards: Board[], bingoNumbers: number[]) => {
-//     if (bingoWinner || bingoNumbers.length === 0) {
-//         return [];
-//     }
-
-//     const numbers = bingoNumbers;
-//     const bingoNumber: any = numbers.shift();
-//     let updatedBoards = updateBoards(boards, bingoNumber)
-//     bingoWinner = isThereBingo(updatedBoards, bingoNumber);
-//     bingo(updatedBoards, numbers)
-//     // console.log('calculateBingoScore(bingoWinner)', calculateBingoScore(bingoWinner));
-//     return calculateBingoScore(bingoWinner);
-
-// }
-
-// console.log('bingo()', bingo(bingoBoards, bingoNumbers));
